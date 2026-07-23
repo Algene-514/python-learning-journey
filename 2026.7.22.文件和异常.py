@@ -1,84 +1,84 @@
-# # 1从文件中读取数据
-# # 读取文件可以编写这样一个程序：
-# # 读取一个文本文件的内容，重新设置这些数据的格式并将其写入文件
-#
-# # 1.1读取整个文件
-# # 先创建一个文本文件(.txt)
-# # 下面的程序打开并读取文件，并将其内容显示在屏幕上
-# with open('text_py.txt') as file_obj:
-#     content = file_obj.read()
-# print(content,1)
-# # 对于该程序的解释：
-# # 函数open()接受一个参数：要打开的文件名称。之后Python在当前执行文件所在的目录中查找指定文件
-# # 之后将该对象赋值给 file_obj以供以后使用
-# # 关键字with在不再需要访问文件后将其关闭
-# # 然而也可以使用open()和close()来打开和关闭文件，但如果这样做，若有bug导致close无法执行，那么文件将不会关闭
-# # 未妥善关闭文件可能导致数据丢失或受损。总之，使用close的风险较大
-# # 相较于原文件，输出的唯一不同是末尾多了个空行，因为read()达到文件末尾时返回一个空字符串，该空字符串显示出来就是一个空行
-# # 想要消除它，我们可以在函数调用print()中使用rstrip(),其可以用来删除字符串末尾的空白部分
-# print(content.rstrip(),1)
-#
-# # 1.2文件路径
-# # 根据组织文件的方式，有时需要在其他目录中打开文件，但是Python只能在本文件夹内查找
-# # 要解决这个问题，需要让Python打开不与程序文件位于同一个目录中的文件，需要提供文件路径，让它自己去查找
-# with open('test_content/text.txt') as obj1:
-#     content1 = obj1.read()
-#     print(content1)
-# # 即使用相对文件路径来打开，指定具体文件夹和文件
-# # 也可以用绝对文件路径，即文件在计算机上的具体位置，在相对路径行不通时，可以用绝对路径
-# # 绝对路径较长，因此将其给一个变量赋值，在将变量给open()会比较方便
-# file_path ="C:/Users/12131/PyCharmMiscProject/基础学习/test_content/text.txt"
-# with open(file_path) as obj2:
-#     content2 = obj2.read()
-# print(content2)
-# # window系统中用的是反斜杠\，但是python中用的是斜杠/
-#
-# # 1.3逐行读取
-# # 要以每次一行的方式检查文件，可以对对象使用for循环:
-# with open('text_py.txt') as obj3:
-#     for line in obj3:
-#         print(line.rstrip())
+# 1从文件中读取数据
+# 读取文件可以编写这样一个程序：
+# 读取一个文本文件的内容，重新设置这些数据的格式并将其写入文件
+
+# 1.1读取整个文件
+# 先创建一个文本文件(.txt)
+# 下面的程序打开并读取文件，并将其内容显示在屏幕上
+with open('text_py.txt') as file_obj:
+    content = file_obj.read()
+print(content,1)
+# 对于该程序的解释：
+# 函数open()接受一个参数：要打开的文件名称。之后Python在当前执行文件所在的目录中查找指定文件
+# 之后将该对象赋值给 file_obj以供以后使用
+# 关键字with在不再需要访问文件后将其关闭
+# 然而也可以使用open()和close()来打开和关闭文件，但如果这样做，若有bug导致close无法执行，那么文件将不会关闭
+# 未妥善关闭文件可能导致数据丢失或受损。总之，使用close的风险较大
+# 相较于原文件，输出的唯一不同是末尾多了个空行，因为read()达到文件末尾时返回一个空字符串，该空字符串显示出来就是一个空行
+# 想要消除它，我们可以在函数调用print()中使用rstrip(),其可以用来删除字符串末尾的空白部分
+print(content.rstrip(),1)
+
+# 1.2文件路径
+# 根据组织文件的方式，有时需要在其他目录中打开文件，但是Python只能在本文件夹内查找
+# 要解决这个问题，需要让Python打开不与程序文件位于同一个目录中的文件，需要提供文件路径，让它自己去查找
+with open('test_content/text.txt') as obj1:
+    content1 = obj1.read()
+    print(content1)
+# 即使用相对文件路径来打开，指定具体文件夹和文件
+# 也可以用绝对文件路径，即文件在计算机上的具体位置，在相对路径行不通时，可以用绝对路径
+# 绝对路径较长，因此将其给一个变量赋值，在将变量给open()会比较方便
+file_path ="C:/Users/12131/PyCharmMiscProject/基础学习/test_content/text.txt"
+with open(file_path) as obj2:
+    content2 = obj2.read()
+print(content2)
+# window系统中用的是反斜杠\，但是python中用的是斜杠/
+
+# 1.3逐行读取
+# 要以每次一行的方式检查文件，可以对对象使用for循环:
+with open('text_py.txt') as obj3:
+    for line in obj3:
+        print(line.rstrip())
 import os
 from shlex import split
 
 # 1.4创建一个包含文件名的列表
 # 使用关键字with时，open()返回的文件对象只在with代码块内可用。
 # 如果要在with代码块外访问文件的内容，可以在with代码块内将文件的各行储存在一个列表中，并在with外使用该列表
-#
-# with open('text_py.txt') as obj4:
-#     lines = obj4.readlines()
-# for line in lines:
-#     print(line.rstrip())
-# #     readlines()从文件中读取每一行，并将其储存在一个列表中
-# #     接下来列表被赋值给lines
-#
-# # 1.5使用文件的内容
-# pi_sting = ""
-# for line in lines:
-#     pi_sting += line.rstrip()
-# print(len(pi_sting))
-# # 可见其中内容是以字符串形式被读取的，若使用数字，则要用int()转换
-#
-# # # 1.1.6圆周率前1000000位包含你的生日吗？
-# birth = input("输入你的生日")
-# if birth in pi_sting:
-#     print('YES')
-# else:
-#     print('NO')
 
-# # 2.写入文件
-# # 2.1写入空文件
-# # 将文本写入文件，在调用open()时需要提供另一个实参，告诉Python你要写入打开的文件
-# filename = 'test2.txt'
-# with open(filename,'w') as obj0:
-#     obj0.write('nice to meet you\n')
-# # open()的第二个参数"w"告诉python要以写入模式打开这个文件
-# # 打开文件时可以指定读取模式“r”,写入模式"w",附加模式'a'或读写模式'r+'
-# # 若省略该参数，默认以只读模式打开
-# for add in range(10):
-#     with open(filename,'a') as obj1:
-#         obj1.write('nice to meet you!\n')
-# # 函数write不会在末尾加换行符，需要手动添加
+with open('text_py.txt') as obj4:
+    lines = obj4.readlines()
+for line in lines:
+    print(line.rstrip())
+#     readlines()从文件中读取每一行，并将其储存在一个列表中
+#     接下来列表被赋值给lines
+
+# 1.5使用文件的内容
+pi_sting = ""
+for line in lines:
+    pi_sting += line.rstrip()
+print(len(pi_sting))
+# 可见其中内容是以字符串形式被读取的，若使用数字，则要用int()转换
+
+# # 1.1.6圆周率前1000000位包含你的生日吗？
+birth = input("输入你的生日")
+if birth in pi_sting:
+    print('YES')
+else:
+    print('NO')
+
+# 2.写入文件
+# 2.1写入空文件
+# 将文本写入文件，在调用open()时需要提供另一个实参，告诉Python你要写入打开的文件
+filename = 'test2.txt'
+with open(filename,'w') as obj0:
+    obj0.write('nice to meet you\n')
+# open()的第二个参数"w"告诉python要以写入模式打开这个文件
+# 打开文件时可以指定读取模式“r”,写入模式"w",附加模式'a'或读写模式'r+'
+# 若省略该参数，默认以只读模式打开
+for add in range(10):
+    with open(filename,'a') as obj1:
+        obj1.write('nice to meet you!\n')
+# 函数write不会在末尾加换行符，需要手动添加
 
 # 3,异常
 # python使用称为'异常'的特殊对象来管理程序执行1期间发生的错误
@@ -265,36 +265,36 @@ with open(file01,'w') as f: #打开文件
 
 # 拓展：验证用户
 # 若用户是先前的用户，则欢迎；若并非原用户，则重新注册
-import json
-
-def get_stored_username():
-    filename1 = "usersname.json"
-    '''收集用户信息并问候用户'''
-    try:
-        with open(filename1) as f1:
-            username = json.load(f1)
-    except FileNotFoundError:
-        return None
-    else:
-        return username
-
-def get_new_username():
-    print("用户未注册，请先注册")
-    username = str(input("Enter your name: "))
-    filename = "usersname.json"
-    with open(filename, 'w') as f:
-        json.dump(username, f)
-        print(f'我记住你了 {username} ！')
-
-def great_user():
-    username = get_stored_username()
-    check = str(input("Enter your name: "))
-    if check == username:
-        print(f'welcome {username}')
-    else:
-        get_new_username()
-
-great_user()
+# import json
+#
+# def get_stored_username():
+#     filename1 = "usersname.json"
+#     '''收集用户信息并问候用户'''
+#     try:
+#         with open(filename1) as f1:
+#             username = json.load(f1)
+#     except FileNotFoundError:
+#         return None
+#     else:
+#         return username
+#
+# def get_new_username():
+#     print("用户未注册，请先注册")
+#     username = str(input("Enter your name: "))
+#     filename = "usersname.json"
+#     with open(filename, 'w') as f:
+#         json.dump(username, f)
+#         print(f'我记住你了 {username} ！')
+#
+# def great_user():
+#     username = get_stored_username()
+#     check = str(input("Enter your name: "))
+#     if check == username:
+#         print(f'welcome {username}')
+#     else:
+#         get_new_username()
+#
+# great_user()
 
 
 
